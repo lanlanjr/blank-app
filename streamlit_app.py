@@ -1,4 +1,6 @@
 # streamlit_app.py
+import pymysql
+pymysql.install_as_MySQLdb()  # Emulate MySQLdb
 
 import streamlit as st
 
