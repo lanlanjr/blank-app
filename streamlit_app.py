@@ -1,11 +1,10 @@
-# streamlit_app.py
-from dotenv import load_dotenv
-import os
+# streamlit_app.py  
+# from dotenv import load_dotenv      # for local dev
 import streamlit as st
 from sqlalchemy import create_engine
 
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()   # for local dev
 
 # Get database credentials from environment variables
 db_config = {
