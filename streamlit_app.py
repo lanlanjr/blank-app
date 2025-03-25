@@ -9,14 +9,26 @@ load_dotenv()
 
 # Get database credentials from environment variables
 db_config = {
-    'dialect': os.getenv('dialect'),
-    'host': os.getenv('host'),
-    'port': os.getenv('port'),
-    'database': os.getenv('database'),
-    # 'username': os.getenv('username'),
-    'username': 'root',
-    'password': os.getenv('password')
+    'dialect': st.secrets['dialect'],
+    'host': st.secrets['host'],
+    'port': st.secrets['port'],
+    'database': st.secrets['database'],
+    'username': st.secrets['username'],
+    'password': st.secrets['password']
 }
+
+
+
+# # Get database credentials from environment variables
+# db_config = {
+#     'dialect': os.getenv('dialect'),
+#     'host': os.getenv('host'),
+#     'port': os.getenv('port'),
+#     'database': os.getenv('database'),
+#     # 'username': os.getenv('username'),
+#     'username': 'root',
+#     'password': os.getenv('password')
+# }
 
 st.write(db_config)
 
