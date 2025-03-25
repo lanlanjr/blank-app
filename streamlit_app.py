@@ -41,8 +41,16 @@ engine = create_engine(connection_string)
 conn = st.connection('mysql', type='sql', url=connection_string)
 
 # Perform query
-df = conn.query('SELECT * from mytable;', ttl=600)
-
-# Print results
-for row in df.itertuples():
-    st.write(f"{row.name} has a :{row.pet}:")
+try:
+    # Ensure the query is a string
+    query = "SELECT * FROM mytable"
+    df = conn.query(query, ttl=600)
+    
+    # Print results
+    if not df.empty:
+        for row in df.itertuples():
+            st.write(f"{row.name} has a :{row.pet}:")
+    else:
+        st.warning("No data found in the table")
+except Exception as e:
+    st.error(f"Error executing query: {str(e)}")
