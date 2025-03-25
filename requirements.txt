@@ -1,4 +1,4 @@
 streamlit
 PyMySQL
-SQLAlchemy
+SQLAlchemy==1.4
 mysqlclient
