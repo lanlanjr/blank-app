@@ -1,7 +1,8 @@
 # streamlit_app.py  
 # from dotenv import load_dotenv      # for local dev
 import streamlit as st
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
+import pandas as pd
 
 # Load environment variables from .env file
 # load_dotenv()   # for local dev
@@ -42,15 +43,16 @@ conn = st.connection('mysql', type='sql', url=connection_string)
 
 # Perform query
 try:
-    # Ensure the query is a string
-    query = "SELECT * FROM mytable"
-    df = conn.query(query, ttl=600)
-    
-    # Print results
-    if not df.empty:
-        for row in df.itertuples():
-            st.write(f"{row.name} has a :{row.pet}:")
-    else:
-        st.warning("No data found in the table")
+    with engine.connect() as connection:
+        # Use text() for SQLAlchemy queries
+        query = text("SELECT * FROM mytable")
+        result = connection.execute(query)
+        df = pd.DataFrame(result.fetchall(), columns=result.keys())
+        
+        if not df.empty:
+            for row in df.itertuples():
+                st.write(f"{row.name} has a :{row.pet}:")
+        else:
+            st.warning("No data found in the table")
 except Exception as e:
     st.error(f"Error executing query: {str(e)}")
