@@ -9,12 +9,12 @@ load_dotenv()
 
 # Get database credentials from environment variables
 db_config = {
-    'dialect': st.secrets['dialect'],
-    'host': st.secrets['host'],
-    'port': st.secrets['port'],
-    'database': st.secrets['database'],
-    'username': st.secrets['username'],
-    'password': st.secrets['password']
+    'dialect': st.secrets['database']['dialect'],
+    'host': st.secrets['database']['host'],
+    'port': st.secrets['database']['port'],
+    'database': st.secrets['database']['database'],
+    'username': st.secrets['database']['username'],
+    'password': st.secrets['database']['password']
 }
 
 
@@ -33,7 +33,7 @@ db_config = {
 st.write(db_config)
 
 # Create database connection string
-connection_string = f"{db_config['dialect']}://{db_config['username']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
+connection_string = f"mysql+pymysql://{db_config['username']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
 
 # Initialize SQLAlchemy engine
 engine = create_engine(connection_string)
